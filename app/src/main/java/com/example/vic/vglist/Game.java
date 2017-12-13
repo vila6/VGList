@@ -7,13 +7,9 @@ package com.example.vic.vglist;
 public class Game {
     int id;
     String name, coverurl;
-    double rating, personalrating;
+    float rating, personalrating;
 
-    public Game(int id, String name){
-        this.id = id;
-        this.name = name;
-    }
-    public Game(int id, String name, double rating, String coverurl){
+    public Game(int id, String name, float rating, String coverurl){
         this.id = id;
         this.name = name;
         this.rating = rating;
@@ -35,7 +31,7 @@ public class Game {
     public void setName(String name){
         this.name = name;
     }
-    public double getRating(){
+    public float getRating(){
         return rating;
     }
 
@@ -45,7 +41,7 @@ public class Game {
 
     public String toString(){
         String toret="";
-        toret += "Game id: " + getId() + "\nName: " + getName();
+        toret += "Game id: " + getId() + "\nName: " + getName() + "\nrating: " + getRating();
         return toret;
     }
 

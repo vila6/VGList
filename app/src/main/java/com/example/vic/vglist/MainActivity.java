@@ -14,7 +14,6 @@ import com.igdb.api_android_java.model.Parameters;
 
 import org.json.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final Mapper map = new Mapper();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -43,13 +41,68 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 resultado.setText("Buscando...");
-                List<Game> list = map.searchGames(busqueda.getText().toString(), getApplicationContext());
-                for(int i=0; i<list.size(); i++){
-                    resultado.setText(resultado.getText().toString() + list.get(i).toString());
-                }
-                resultado.setText(resultado.getText().toString() + "\n NUMERO DE RESULTADOS: " + list.size());
+                APIWrapper wrapper = new APIWrapper(getApplicationContext(), API_KEY);
+                Parameters params = new Parameters()
+                        .addSearch(busqueda.getText().toString())
+                        .addFields("name,cover.url,rating")
+                        .addOrder("published_at:desc")
+                        .addLimit("20");
 
+                wrapper.games(params, new onSuccessCallback(){
+                    @Override
+                    public void onSuccess(JSONArray result)  {
+                        for (int i = 0; i < result.length(); i++) {
+                            try {
+                                JSONObject jsonobject = result.getJSONObject(i);
+                                int id = jsonobject.getInt("id");
+                                String name = jsonobject.getString("name");
+                                JSONObject cover = jsonobject.getJSONObject("cover");
+                                String url = cover.getString("url");
+                                float rating = (float) jsonobject.getDouble("rating");
+                                Game juego = new Game(id, name, rating, url);
+                                System.out.println("ESPAÑA");
+                                System.out.println(juego.toString());
+                                resultado.setText(resultado.getText() + juego.toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        // Do something with resulting JSONArray
+                       /* ArrayList<String> resultArray = null;
+                        try {
+                            resultArray = JSONtoString(result);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        if(!resultArray.isEmpty()) {
+                            resultado.setText("Resultados: " + result.length() + "\n" + resultArray.toString());
+
+                        }else{
+                            resultado.setText("Busca bien carallo");
+                        }*/
+
+                    }
+
+                    @Override
+                    public void onError(VolleyError error) {
+                        System.err.print("Fallito wapo");
+                    }
+                });
             }
         });
+
+
+    }
+    public static ArrayList<String> JSONtoString(JSONArray jsonArray) throws JSONException {
+        ArrayList<String> list = new ArrayList<String>();
+        if (jsonArray != null) {
+            jsonArray.getString(1);
+            int len = jsonArray.length();
+            for (int i = 0; i < len; i++) {
+                list.add(jsonArray.get(i).toString());
+            }
+        }
+        return list;
     }
 }
