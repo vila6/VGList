@@ -39,9 +39,16 @@ public class Game {
         this.id = id;
     }
 
+    public void setCoverurl(String url){
+        this.coverurl = url;
+    }
+
+    public String getCoverUrl(){
+        return this.coverurl;
+    }
     public String toString(){
         String toret="";
-        toret += "Game id: " + getId() + "\nName: " + getName() + "\nrating: " + getRating();
+        toret += "Game id: " + getId() + "\nName: " + getName() + "\nrating: " + getRating() + "\ncover url: " + getCoverUrl() + "\n";
         return toret;
     }
 

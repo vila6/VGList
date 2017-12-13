@@ -44,8 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 APIWrapper wrapper = new APIWrapper(getApplicationContext(), API_KEY);
                 Parameters params = new Parameters()
                         .addSearch(busqueda.getText().toString())
-                        .addFields("name,cover.url,rating")
-                        .addOrder("published_at:desc")
+                        .addFields("name,rating,cover")
                         .addLimit("20");
 
                 wrapper.games(params, new onSuccessCallback(){
@@ -56,31 +55,22 @@ public class MainActivity extends AppCompatActivity {
                                 JSONObject jsonobject = result.getJSONObject(i);
                                 int id = jsonobject.getInt("id");
                                 String name = jsonobject.getString("name");
-                                JSONObject cover = jsonobject.getJSONObject("cover");
-                                String url = cover.getString("url");
-                                float rating = (float) jsonobject.getDouble("rating");
+                                String url="";
+                                if(jsonobject.has("cover")){
+                                    JSONObject cover = jsonobject.getJSONObject("cover");
+                                    url = cover.getString("url");
+                                }
+                                float rating=0;
+                                if(jsonobject.has("rating")){
+                                    rating = (float) jsonobject.getDouble("rating");
+                                }
                                 Game juego = new Game(id, name, rating, url);
-                                System.out.println("ESPAÑA");
                                 System.out.println(juego.toString());
                                 resultado.setText(resultado.getText() + juego.toString());
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-
-                        // Do something with resulting JSONArray
-                       /* ArrayList<String> resultArray = null;
-                        try {
-                            resultArray = JSONtoString(result);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        if(!resultArray.isEmpty()) {
-                            resultado.setText("Resultados: " + result.length() + "\n" + resultArray.toString());
-
-                        }else{
-                            resultado.setText("Busca bien carallo");
-                        }*/
 
                     }
 
