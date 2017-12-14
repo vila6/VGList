@@ -15,7 +15,7 @@ import com.igdb.api_android_java.model.Parameters;
 import org.json.*;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private final String API_KEY = "cf62b2e3faec9509618f5ddc1125e937";
 
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 Parameters params = new Parameters()
                         .addSearch(busqueda.getText().toString())
                         .addFields("name,rating,cover")
+                        .addOrder("popularity:desc")
                         .addLimit("20");
 
                 wrapper.games(params, new onSuccessCallback(){
