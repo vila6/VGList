@@ -1,5 +1,6 @@
 package com.example.vic.vglist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -12,7 +13,10 @@ import com.igdb.api_android_java.callback.onSuccessCallback;
 import com.igdb.api_android_java.model.APIWrapper;
 import com.igdb.api_android_java.model.Parameters;
 
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
@@ -21,9 +25,10 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
+  
         final TextView resultado = (TextView) findViewById(R.id.resultado);
         final EditText busqueda = (EditText) findViewById(R.id.busqueda);
 

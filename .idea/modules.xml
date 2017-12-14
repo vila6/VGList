@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/VGList.iml" filepath="$PROJECT_DIR$/VGList.iml" />
       <module fileurl="file://C:\Users\Mau\Documents\GitHub\VGList8\VGList.iml" filepath="C:\Users\Mau\Documents\GitHub\VGList8\VGList.iml" />
       <module fileurl="file://D:\Documentos\DM\VGList\VGList9\VGList8.iml" filepath="D:\Documentos\DM\VGList\VGList9\VGList8.iml" />
-      <module fileurl="file://$PROJECT_DIR$/VGList9.iml" filepath="$PROJECT_DIR$/VGList9.iml" />
+      <module fileurl="file://C:\Users\Mau\Documents\GitHub\VGList\VGList9.iml" filepath="C:\Users\Mau\Documents\GitHub\VGList\VGList9.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Mau\Documents\GitHub\VGList\app\app.iml" filepath="C:\Users\Mau\Documents\GitHub\VGList\app\app.iml" />
       <module fileurl="file://D:\Documentos\DM\VGList\VGList9\app\app.iml" filepath="D:\Documentos\DM\VGList\VGList9\app\app.iml" />
       <module fileurl="file://C:\Users\Mau\Documents\GitHub\VGList8\app\app.iml" filepath="C:\Users\Mau\Documents\GitHub\VGList8\app\app.iml" />
     </modules>
