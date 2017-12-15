@@ -54,6 +54,12 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String busqueda) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String busqueda) {
                 System.out.println("BUSCANDO: "+busqueda);
                 APIWrapper wrapper = new APIWrapper(getApplicationContext(), API_KEY);
                 Parameters params = new Parameters()
@@ -97,11 +103,6 @@ public class SearchActivity extends AppCompatActivity {
                         System.err.print("Fallito wapo");
                     }
                 });
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
                 return false;
             }
         });
