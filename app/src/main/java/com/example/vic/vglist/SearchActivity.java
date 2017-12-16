@@ -130,7 +130,8 @@ public class SearchActivity extends AppCompatActivity {
 
         APIWrapper wrapper = new APIWrapper(getApplicationContext(), API_KEY);
         Parameters params = new Parameters()
-                .addOrder("popularity:desc")
+                .addFilter("[rating][gt]=50")
+                .addOrder("first_release_date:desc")
                 .addLimit("20");
 
 

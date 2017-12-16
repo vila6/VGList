@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".SearchActivity">
+        <activity android:name=".SearchActivity"
+            android:label="Latest games">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +25,7 @@
 
         </activity>
         <activity android:name=".GamesListActivity"
-            android:label="Games list"
+            android:label="My games"
             android:theme="@style/AppTheme"></activity>
     </application>
 
