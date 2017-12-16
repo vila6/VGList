@@ -5,34 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/imgCover"
-        android:layout_width="100px"
-        android:layout_height="100px"
-        android:layout_alignBottom="@+id/textGameName"
+        android:layout_width="200px"
+        android:layout_height="200px"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="13dp"
-        app:srcCompat="@android:color/holo_blue_bright" />
+        android:layout_below="@+id/my_toolbar"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="19dp" />
 
     <TextView
         android:id="@+id/textGameName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="12dp"
+        android:layout_alignTop="@+id/imgCover"
+        android:layout_marginStart="18dp"
         android:layout_toEndOf="@+id/imgCover"
         android:maxLines="2"
         android:singleLine="false"
-        android:text="pues la musica es mi lengua y el mundo mi familia"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textGameName"
-        android:layout_below="@+id/textGameName"
-        android:layout_marginStart="242dp"
-        android:layout_marginTop="20dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/imgCover"
+        android:layout_row="1"
+        android:numStars="10"
+        android:backgroundTint="@color/colorBackgroundStars"
+        android:indeterminateTint="@color/colorBackgroundStars"
+        android:progressBackgroundTint="@color/colorBackgroundStars"
+        android:progressTint="@color/colorStars"
+        android:secondaryProgressTint="@color/colorBackgroundStars"
+        android:stepSize="0.01" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="24dp"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorStars"
+        app:fabSize="normal"
+        app:srcCompat="@android:drawable/ic_input_add" />
 </android.widget.RelativeLayout>

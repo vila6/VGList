@@ -1,15 +1,17 @@
 package com.example.vic.vglist;
 
+import java.io.Serializable;
+
 /**
  * Created by Mau on 05/12/2017.
  */
 
-public class Game {
+public class Game implements Serializable {
     int id;
     String name, coverurl;
-    float rating, personalrating;
+    double rating, personalrating;
 
-    public Game(int id, String name, float rating, String coverurl){
+    public Game(int id, String name, double rating, String coverurl){
         this.id = id;
         this.name = name;
         this.rating = rating;
@@ -31,7 +33,7 @@ public class Game {
     public void setName(String name){
         this.name = name;
     }
-    public float getRating(){
+    public double getRating(){
         return rating;
     }
 

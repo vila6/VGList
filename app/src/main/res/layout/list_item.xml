@@ -35,7 +35,11 @@
         android:layout_alignParentEnd="true"
         android:layout_row="1"
         android:numStars="10"
-        android:rating="0"
+        android:backgroundTint="@color/colorBackgroundStars"
+        android:indeterminateTint="@color/colorBackgroundStars"
+        android:progressBackgroundTint="@color/colorBackgroundStars"
+        android:progressTint="@color/colorStars"
+        android:secondaryProgressTint="@color/colorBackgroundStars"
         android:stepSize="0.01" />
 
 </android.widget.RelativeLayout>

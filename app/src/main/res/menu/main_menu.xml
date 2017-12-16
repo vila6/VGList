@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/btMyGames"
+        android:icon="@android:drawable/ic_menu_gallery"
+        android:title="Mi lista"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/btSearch"
         android:icon="@android:drawable/ic_menu_search"
         android:title="Buscar"

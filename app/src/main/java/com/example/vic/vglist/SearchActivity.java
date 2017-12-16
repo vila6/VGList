@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
@@ -34,9 +36,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class SearchActivity extends AppCompatActivity {
     public List<Game> gamesList = new ArrayList<Game>();
     private final String API_KEY = "cf62b2e3faec9509618f5ddc1125e937";
+    private final CustomAdapter adapter = new CustomAdapter();
 
     public boolean onCreateOptionsMenu(Menu menu) {
         final DBManager dbManager = new DBManager(getApplicationContext());
@@ -45,12 +50,30 @@ public class SearchActivity extends AppCompatActivity {
 
         this.getMenuInflater().inflate(R.menu.main_menu, menu);
         MenuItem searcher = menu.findItem(R.id.btSearch);
+        MenuItem mygames = menu.findItem(R.id.btMyGames);
+        mygames.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent toMyGames = new Intent(getApplicationContext(), GamesListActivity.class);
+                startActivity(toMyGames);
+                return false;
+            }
+        });
         SearchView searchView = (SearchView) searcher.getActionView();
 
         ListView listGames = (ListView) findViewById(R.id.listGames);
-        final CustomAdapter adapter = new CustomAdapter();
         listGames.setAdapter(adapter);
 
+        listGames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Game juegoClicado = adapter.getItem(i);
+                Intent toGameDetails = new Intent(view.getContext(), GameDetailsActivity.class);
+                toGameDetails.putExtra("game", juegoClicado);
+                Toast.makeText(getApplicationContext(), juegoClicado.getName(), Toast.LENGTH_LONG).show();
+                startActivity(toGameDetails);
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String busqueda) {
@@ -88,7 +111,6 @@ public class SearchActivity extends AppCompatActivity {
                                 }
                                 Game juego = new Game(id, name, rating, url);
                                 gamesList.add(juego);
-                                dbManager.echoAll();
                                 adapter.notifyDataSetChanged();
 
                             } catch (JSONException e) {
@@ -113,11 +135,12 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        
         APIWrapper wrapper = new APIWrapper(getApplicationContext(), API_KEY);
         Parameters params = new Parameters()
                 .addOrder("popularity:desc")
                 .addLimit("20");
+
 
         wrapper.games(params, new onSuccessCallback() {
             @Override
@@ -139,7 +162,7 @@ public class SearchActivity extends AppCompatActivity {
                         }
                         Game juego = new Game(id, name, rating, url);
                         gamesList.add(juego);
-
+                        adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -160,11 +183,12 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 20;
+            return gamesList.size();
         }
 
+
         @Override
-        public Object getItem(int i) {
+        public Game getItem(int i) {
             return gamesList.get(i);
         }
 
@@ -187,8 +211,7 @@ public class SearchActivity extends AppCompatActivity {
                         .load(actualGame.getCoverUrl())
                         .into(imageView);
                 textGame.setText((CharSequence) actualGame.getName());
-                ratingBar.setRating(actualGame.getRating()/10);
-                System.out.println("Juego numero " + i + ": " + actualGame.getName());
+                ratingBar.setRating((float)(actualGame.getRating()/10));
             }
 
 
@@ -196,15 +219,5 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    public static ArrayList<String> JSONtoString(JSONArray jsonArray) throws JSONException {
-        ArrayList<String> list = new ArrayList<String>();
-        if (jsonArray != null) {
-            jsonArray.getString(1);
-            int len = jsonArray.length();
-            for (int i = 0; i < len; i++) {
-                list.add(jsonArray.get(i).toString());
-            }
-        }
-        return list;
-    }
+
 }
