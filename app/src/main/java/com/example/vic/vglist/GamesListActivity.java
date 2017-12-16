@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -39,7 +38,6 @@ public class GamesListActivity extends AppCompatActivity {
                 Game juegoClicado = adapter.getItem(i);
                 Intent toGameDetails = new Intent(view.getContext(), GameDetailsActivity.class);
                 toGameDetails.putExtra("game", juegoClicado);
-                Toast.makeText(getApplicationContext(), juegoClicado.getName(), Toast.LENGTH_LONG).show();
                 startActivity(toGameDetails);
                 final CustomAdapter adapter = new CustomAdapter();
             }

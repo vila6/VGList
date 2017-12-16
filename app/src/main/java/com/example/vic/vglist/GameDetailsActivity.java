@@ -44,6 +44,7 @@ public class GameDetailsActivity extends AppCompatActivity{
             final ImageView cover = (ImageView) findViewById(R.id.imgCover);
             final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
             final TextView textDescription = (TextView) findViewById(R.id.textDescription);
+            final TextView textYourRating = (TextView) findViewById(R.id.textYourRating);
             game = (Game) getIntent().getSerializableExtra("game");
 
 
@@ -55,9 +56,11 @@ public class GameDetailsActivity extends AppCompatActivity{
                     .load(game.getCoverUrl())
                     .into(cover);
 
-            final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            final FloatingActionButton fab = findViewById(R.id.fab);
             if(dbManager.isAdded(game.getId())){
                 fab.setImageDrawable(getDrawable(getResources().getIdentifier("@android:drawable/ic_delete",null, getPackageName())));
+                ratingBarUser.setVisibility(View.VISIBLE);
+                textYourRating.setVisibility(View.VISIBLE);
             }
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,12 +72,16 @@ public class GameDetailsActivity extends AppCompatActivity{
                         Snackbar.make(view, "Juego añadido", Snackbar.LENGTH_LONG)
                                 .setAction("Juego añadido", null).show();
                         fab.setImageDrawable(getDrawable(getResources().getIdentifier("@android:drawable/ic_delete",null, getPackageName())));
+                        ratingBarUser.setVisibility(View.VISIBLE);
+                        textYourRating.setVisibility(View.VISIBLE);
                     }else{
                         dbManager.deleteGame(game.id);
                         dbManager.echoAll();
                         Snackbar.make(view, "Juego borrado", Snackbar.LENGTH_LONG)
                                 .setAction("Juego borrado", null).show();
                         fab.setImageDrawable(getDrawable(getResources().getIdentifier("@android:drawable/ic_input_add",null, getPackageName())));
+                        ratingBarUser.setVisibility(View.GONE);
+                        textYourRating.setVisibility(View.GONE);
                     }
                 }
             });

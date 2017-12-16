@@ -3,26 +3,17 @@ package com.example.vic.vglist;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
 import com.igdb.api_android_java.callback.onSuccessCallback;
@@ -36,7 +27,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class SearchActivity extends AppCompatActivity {
     public List<Game> gamesList = new ArrayList<Game>();
@@ -44,7 +34,6 @@ public class SearchActivity extends AppCompatActivity {
     private final CustomAdapter adapter = new CustomAdapter();
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        final DBManager dbManager = new DBManager(getApplicationContext());
 
         super.onCreateOptionsMenu(menu);
 
@@ -70,7 +59,6 @@ public class SearchActivity extends AppCompatActivity {
                 Game juegoClicado = adapter.getItem(i);
                 Intent toGameDetails = new Intent(view.getContext(), GameDetailsActivity.class);
                 toGameDetails.putExtra("game", juegoClicado);
-                Toast.makeText(getApplicationContext(), juegoClicado.getName(), Toast.LENGTH_LONG).show();
                 startActivity(toGameDetails);
             }
         });
@@ -186,6 +174,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
     }
+
 
     class CustomAdapter extends BaseAdapter{
 
