@@ -9,7 +9,8 @@ import java.io.Serializable;
 public class Game implements Serializable {
     int id;
     String name, coverurl, description;
-    double rating, ratinguser;
+    double rating;
+    float ratinguser;
 
 
     public Game(int id, String name, double rating, String coverurl, String description, float ratinguser){
@@ -61,7 +62,7 @@ public class Game implements Serializable {
         this.ratinguser = rating;
     }
 
-    public double getRatinguser(){
+    public float getRatinguser(){
         return this.ratinguser;
     }
 

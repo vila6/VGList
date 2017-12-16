@@ -19,7 +19,7 @@ import java.util.List;
 public class DBManager extends SQLiteOpenHelper {
 
     public DBManager(Context context) {
-        super( context, "VGList_DB5", null,5);
+        super( context, "VGList_DB6", null,6);
     }
     @Override
     public void onCreate(SQLiteDatabase db)

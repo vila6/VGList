@@ -21,10 +21,10 @@ import java.util.ArrayList;
 public class GamesListActivity extends AppCompatActivity {
     public ArrayList<Game> gamesList;
     final CustomAdapter adapter = new CustomAdapter();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final DBManager dbManager = new DBManager(getApplicationContext());
+
+        DBManager dbManager = new DBManager(getApplicationContext());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_gameslist);
@@ -49,7 +49,11 @@ public class GamesListActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        DBManager dbManager = new DBManager(getApplicationContext());
         super.onResume();
+        ListView listGames = (ListView) findViewById(R.id.listGames);
+        gamesList = dbManager.getAllGames();
+        listGames.setAdapter(adapter);
     }
 
     class CustomAdapter extends BaseAdapter {
@@ -72,11 +76,12 @@ public class GamesListActivity extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.list_item,null);
+            view = getLayoutInflater().inflate(R.layout.list_item_rated,null);
 
             ImageView imageView = (ImageView)view.findViewById(R.id.imgCover);
             TextView textGame = (TextView) view.findViewById(R.id.textGameName);
             RatingBar ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
+            RatingBar ratingBarUser = (RatingBar) view.findViewById(R.id.ratingBarUser);
 
             if(gamesList.size()>i) {
                 Game actualGame = gamesList.get(i);
@@ -85,9 +90,8 @@ public class GamesListActivity extends AppCompatActivity {
                         .into(imageView);
                 textGame.setText((CharSequence) actualGame.getName());
                 ratingBar.setRating((float)(actualGame.getRating()/10));
-                System.out.println("Juego numero " + i + ": " + actualGame.getName());
+                ratingBarUser.setRating(actualGame.getRatinguser());
             }
-
 
             return view;
         }
