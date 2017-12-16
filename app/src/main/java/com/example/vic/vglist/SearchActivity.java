@@ -87,7 +87,7 @@ public class SearchActivity extends AppCompatActivity {
                 APIWrapper wrapper = new APIWrapper(getApplicationContext(), API_KEY);
                 Parameters params = new Parameters()
                         .addSearch(busqueda)
-                        .addFields("name,rating,cover")
+                        .addFields("name,rating,cover,summary")
                         .addOrder("popularity:desc")
                         .addLimit("20");
 
@@ -100,6 +100,10 @@ public class SearchActivity extends AppCompatActivity {
                                 JSONObject jsonobject = result.getJSONObject(i);
                                 int id = jsonobject.getInt("id");
                                 String name = jsonobject.getString("name");
+                                String description = "";
+                                if(jsonobject.has("summary")){
+                                    description = jsonobject.getString("summary");
+                                }
                                 String url = "";
                                 if (jsonobject.has("cover")) {
                                     JSONObject cover = jsonobject.getJSONObject("cover");
@@ -109,7 +113,7 @@ public class SearchActivity extends AppCompatActivity {
                                 if (jsonobject.has("rating")) {
                                     rating = (float) jsonobject.getDouble("rating");
                                 }
-                                Game juego = new Game(id, name, rating, url);
+                                Game juego = new Game(id, name, rating, url, description, 0);
                                 gamesList.add(juego);
                                 adapter.notifyDataSetChanged();
 
@@ -135,7 +139,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        
+
         APIWrapper wrapper = new APIWrapper(getApplicationContext(), API_KEY);
         Parameters params = new Parameters()
                 .addOrder("popularity:desc")
@@ -151,6 +155,10 @@ public class SearchActivity extends AppCompatActivity {
                         JSONObject jsonobject = result.getJSONObject(i);
                         int id = jsonobject.getInt("id");
                         String name = jsonobject.getString("name");
+                        String description = "";
+                        if(jsonobject.has("summary")){
+                            description = jsonobject.getString("summary");
+                        }
                         String url = "";
                         if (jsonobject.has("cover")) {
                             JSONObject cover = jsonobject.getJSONObject("cover");
@@ -160,7 +168,7 @@ public class SearchActivity extends AppCompatActivity {
                         if (jsonobject.has("rating")) {
                             rating = (float) jsonobject.getDouble("rating");
                         }
-                        Game juego = new Game(id, name, rating, url);
+                        Game juego = new Game(id, name, rating, url, description,0);
                         gamesList.add(juego);
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {

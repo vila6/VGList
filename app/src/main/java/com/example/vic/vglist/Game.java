@@ -8,14 +8,17 @@ import java.io.Serializable;
 
 public class Game implements Serializable {
     int id;
-    String name, coverurl;
-    double rating, personalrating;
+    String name, coverurl, description;
+    double rating, ratinguser;
 
-    public Game(int id, String name, double rating, String coverurl){
+
+    public Game(int id, String name, double rating, String coverurl, String description, float ratinguser){
         this.id = id;
         this.name = name;
         this.rating = rating;
         this.coverurl = coverurl;
+        this.description = description;
+        this.ratinguser = ratinguser;
     }
 
     public int getId(){
@@ -33,6 +36,7 @@ public class Game implements Serializable {
     public void setName(String name){
         this.name = name;
     }
+
     public double getRating(){
         return rating;
     }
@@ -48,6 +52,19 @@ public class Game implements Serializable {
     public String getCoverUrl(){
         return this.coverurl;
     }
+
+    public String getDescription() { return this.description; }
+
+    public void setDescription(String description){ this.description = description; }
+
+    public void setRatinguser(int rating){
+        this.ratinguser = rating;
+    }
+
+    public double getRatinguser(){
+        return this.ratinguser;
+    }
+
     public String toString(){
         String toret="";
         toret += "Game id: " + getId() + "\nName: " + getName() + "\nrating: " + getRating() + "\ncover url: " + getCoverUrl() + "\n";

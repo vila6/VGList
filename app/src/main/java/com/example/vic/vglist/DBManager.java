@@ -19,14 +19,14 @@ import java.util.List;
 public class DBManager extends SQLiteOpenHelper {
 
     public DBManager(Context context) {
-        super( context, "VGList_DB3", null,3);
+        super( context, "VGList_DB5", null,5);
     }
     @Override
     public void onCreate(SQLiteDatabase db)
     {
         try {
             db.beginTransaction();
-            db.execSQL( "CREATE TABLE JUEGOS ( ID int PRIMARY KEY, NAME TEXT, RATING int, COVERURL TEXT)");
+            db.execSQL( "CREATE TABLE JUEGOS ( ID int PRIMARY KEY, NAME TEXT, RATING int, COVERURL TEXT, DESCRIPTION TEXT, RATINGUSER int)");
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
@@ -45,6 +45,8 @@ public class DBManager extends SQLiteOpenHelper {
         contentValues.put("NAME",game.getName());
         contentValues.put("RATING",game.getRating());
         contentValues.put("COVERURL", game.getCoverUrl());
+        contentValues.put("DESCRIPTION", game.getDescription());
+        contentValues.put("RATINGUSER", game.getRatinguser());
         this.getWritableDatabase().insertOrThrow("JUEGOS",null,contentValues);
     }
 
@@ -63,11 +65,29 @@ public class DBManager extends SQLiteOpenHelper {
         return toret;
     }
 
+    public boolean hasRatinguser(int id){
+        Boolean toret = false;
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT RATINGUSER FROM JUEGOS WHERE ID='"+id+"'",null);
+        cursor.moveToNext();
+        if (cursor.getInt(0) > 0) toret = true;
+        return toret;
+    }
+
+    public void addRatinguser(int id, float new_rating){
+        this.getWritableDatabase().execSQL("UPDATE JUEGOS SET RATINGUSER='" + new_rating + "' WHERE ID='" + id + "'");
+    }
+
+    public float getRatingUser(int id){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT RATINGUSER FROM JUEGOS WHERE ID='"+id+"'",null);
+        cursor.moveToNext();
+        return cursor.getFloat(0);
+    }
+
     public ArrayList<Game> getAllGames(){
         ArrayList<Game> toret = new ArrayList<Game>();
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM JUEGOS", null);
         while(cursor.moveToNext()){
-            Game actualgame = new Game(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getString(3));
+            Game actualgame = new Game(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getString(3),cursor.getString(4),cursor.getInt(5));
             toret.add(actualgame);
         }
         return toret;

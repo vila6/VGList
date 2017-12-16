@@ -50,7 +50,6 @@ public class GamesListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
     }
 
     class CustomAdapter extends BaseAdapter {

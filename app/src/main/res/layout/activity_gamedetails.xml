@@ -55,4 +55,49 @@
         app:backgroundTint="@color/colorStars"
         app:fabSize="normal"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        android:scrollbars="vertical">
+
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/fab"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="21dp"
+            android:maxLines="15"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:scrollbars="vertical"
+            android:text="Un espectro se cierne sobre Europa: el espectro del comunismo. Contra este espectro se han conjurado en santa jauría todas las potencias de la vieja Europa, el Papa y el zar, Metternich y Guizot, los radicales franceses y los polizontes alemanes. No hay u" />
+
+        <RatingBar
+            android:id="@+id/ratingBarUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:numStars="5"
+            android:backgroundTint="@color/colorBackgroundStars"
+            android:indeterminateTint="@color/colorBackgroundStars"
+            android:progressBackgroundTint="@color/colorBackgroundStars"
+            android:progressTint="@color/colorStars"
+            android:secondaryProgressTint="@color/colorBackgroundStars"
+            android:stepSize="0.5" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Your rating" />
+    </LinearLayout>
+
 </android.widget.RelativeLayout>
