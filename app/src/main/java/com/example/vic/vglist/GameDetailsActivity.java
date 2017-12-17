@@ -65,9 +65,6 @@ public class GameDetailsActivity extends AppCompatActivity{
                 ratingBarUser.setVisibility(View.VISIBLE);
                 textYourRating.setVisibility(View.VISIBLE);
                 switchState.setVisibility(View.VISIBLE);
-                if(game.getCompleted()){
-                    switchState.setChecked(true);
-                }
 
             }
             fab.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +80,7 @@ public class GameDetailsActivity extends AppCompatActivity{
                         ratingBarUser.setVisibility(View.VISIBLE);
                         textYourRating.setVisibility(View.VISIBLE);
                         switchState.setVisibility(View.VISIBLE);
+                        switchState.setText("Playing");
                     }else{
                         dbManager.deleteGame(game.id);
                         dbManager.echoAll();
@@ -97,6 +95,12 @@ public class GameDetailsActivity extends AppCompatActivity{
             });
             if(dbManager.isAdded(game.getId())) {
                 ratingBarUser.setRating(dbManager.getRatingUser(game.getId()));
+                game.setState(dbManager.getState(game.getId()));
+                if(game.getState()){
+                    switchState.setChecked(true);
+                    switchState.setText("Completed");
+                }
+                else switchState.setText("Playing");
             }
             ratingBarUser.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
@@ -104,15 +108,16 @@ public class GameDetailsActivity extends AppCompatActivity{
                     dbManager.addRatinguser(game.getId(), v);
                 }
             });
-
             switchState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                     if (isChecked){
                         dbManager.addState(game.getId(),1);
+                        switchState.setText("Completed");
                     }
                     else{
                         dbManager.addState(game.getId(),0);
+                        switchState.setText("Playing");
                     }
                 }
             });

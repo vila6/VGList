@@ -203,6 +203,7 @@ public class SearchActivity extends AppCompatActivity {
             ImageView imageView = (ImageView)view.findViewById(R.id.imgCover);
             TextView textGame = (TextView) view.findViewById(R.id.textGameName);
             RatingBar ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
+            TextView textState = (TextView) view.findViewById(R.id.textState);
 
             if(gamesList.size()>i) {
                 Game actualGame = gamesList.get(i);
@@ -211,6 +212,9 @@ public class SearchActivity extends AppCompatActivity {
                         .into(imageView);
                 textGame.setText((CharSequence) actualGame.getName());
                 ratingBar.setRating((float)(actualGame.getRating()/10));
+                if(new DBManager(getApplicationContext()).isAdded(actualGame.getId())){
+                    textState.setText("Added ");
+                }
             }
 
 

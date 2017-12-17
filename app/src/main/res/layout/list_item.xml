@@ -42,4 +42,12 @@
         android:secondaryProgressTint="@color/colorBackgroundStars"
         android:stepSize="0.01" />
 
+    <TextView
+        android:id="@+id/textState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ratingBar"
+        android:layout_alignParentEnd="true"
+        android:textColor="@android:color/darker_gray" />
+
 </android.widget.RelativeLayout>

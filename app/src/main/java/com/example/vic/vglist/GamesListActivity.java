@@ -89,8 +89,8 @@ public class GamesListActivity extends AppCompatActivity {
                         .into(imageView);
                 textGame.setText((CharSequence) actualGame.getName());
                 ratingBar.setRating((float)(actualGame.getRating()/10));
-                ratingBarUser.setRating((float)actualGame.getRatinguser());
-                textState.setText((CharSequence) actualGame.getState());
+                ratingBarUser.setRating(actualGame.getRatinguser());
+                textState.setText((CharSequence) actualGame.getNameState());
             }
 
             return view;

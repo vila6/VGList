@@ -119,10 +119,11 @@
         android:layout_alignStart="@+id/imgCover"
         android:layout_below="@+id/imgCover"
         android:checked="false"
-        android:text="Completed"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@android:color/darker_gray"
-        android:visibility="invisible"
-        android:theme="@style/SCBSwitch"/>
+        android:textOff="Playing"
+        android:textOn="Completed"
+        android:theme="@style/SCBSwitch"
+        android:visibility="invisible" />
 
 </android.widget.RelativeLayout>
