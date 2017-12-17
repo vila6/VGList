@@ -36,6 +36,7 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         super.onCreateOptionsMenu(menu);
+        setTitle("Latest Games");
 
         this.getMenuInflater().inflate(R.menu.main_menu, menu);
         MenuItem searcher = menu.findItem(R.id.btSearch);
