@@ -128,7 +128,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         APIWrapper wrapper = new APIWrapper(getApplicationContext(), API_KEY);
         Parameters params = new Parameters()
                 .addFilter("[rating][gt]=50")
