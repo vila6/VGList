@@ -11,6 +11,8 @@ public class Game implements Serializable {
     String name, coverurl, description;
     double rating;
     float ratinguser;
+    short playing;
+    short completed;
 
 
     public Game(int id, String name, double rating, String coverurl, String description, float ratinguser){
@@ -20,6 +22,8 @@ public class Game implements Serializable {
         this.coverurl = coverurl;
         this.description = description;
         this.ratinguser = ratinguser;
+        this.playing = 0;
+        this.completed = 0;
     }
 
     public int getId(){
@@ -64,6 +68,30 @@ public class Game implements Serializable {
 
     public float getRatinguser(){
         return this.ratinguser;
+    }
+
+    public void setPlaying(short playing){
+        this.playing = playing;
+    }
+
+    public boolean getPlaying(){
+        if(this.playing==1) return true;
+        else return false;
+    }
+
+    public void setCompleted(short completed){
+        this.completed = completed;
+    }
+
+    public boolean getCompleted(){
+        if(this.completed==1) return true;
+        else return false;
+    }
+
+    public String getState(){
+        if(getPlaying()) return "Playing ";
+        if(getCompleted()) return "Completed ";
+        return "Patata ";
     }
 
     public String toString(){

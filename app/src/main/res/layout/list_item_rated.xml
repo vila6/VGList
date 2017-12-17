@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:columnCount="2">
@@ -57,5 +58,13 @@
         android:progressTint="@color/colorStars"
         android:secondaryProgressTint="@color/colorBackgroundStars"
         android:stepSize="0.1" />
+
+    <TextView
+        android:id="@+id/textState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ratingBar"
+        android:layout_alignParentEnd="true"
+        android:textColor="@android:color/darker_gray" />
 
 </android.widget.RelativeLayout>

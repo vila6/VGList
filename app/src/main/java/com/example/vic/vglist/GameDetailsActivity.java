@@ -12,9 +12,11 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -45,6 +47,7 @@ public class GameDetailsActivity extends AppCompatActivity{
             final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
             final TextView textDescription = (TextView) findViewById(R.id.textDescription);
             final TextView textYourRating = (TextView) findViewById(R.id.textYourRating);
+            final Switch switchState = (Switch) findViewById(R.id.switchState);
             game = (Game) getIntent().getSerializableExtra("game");
 
 
@@ -61,6 +64,11 @@ public class GameDetailsActivity extends AppCompatActivity{
                 fab.setImageDrawable(getDrawable(getResources().getIdentifier("@android:drawable/ic_delete",null, getPackageName())));
                 ratingBarUser.setVisibility(View.VISIBLE);
                 textYourRating.setVisibility(View.VISIBLE);
+                switchState.setVisibility(View.VISIBLE);
+                if(game.getCompleted()){
+                    switchState.setChecked(true);
+                }
+
             }
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,6 +82,7 @@ public class GameDetailsActivity extends AppCompatActivity{
                         fab.setImageDrawable(getDrawable(getResources().getIdentifier("@android:drawable/ic_delete",null, getPackageName())));
                         ratingBarUser.setVisibility(View.VISIBLE);
                         textYourRating.setVisibility(View.VISIBLE);
+                        switchState.setVisibility(View.VISIBLE);
                     }else{
                         dbManager.deleteGame(game.id);
                         dbManager.echoAll();
@@ -82,6 +91,7 @@ public class GameDetailsActivity extends AppCompatActivity{
                         fab.setImageDrawable(getDrawable(getResources().getIdentifier("@android:drawable/ic_input_add",null, getPackageName())));
                         ratingBarUser.setVisibility(View.GONE);
                         textYourRating.setVisibility(View.GONE);
+                        switchState.setVisibility(View.GONE);
                     }
                 }
             });
@@ -92,6 +102,18 @@ public class GameDetailsActivity extends AppCompatActivity{
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                     dbManager.addRatinguser(game.getId(), v);
+                }
+            });
+
+            switchState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked){
+                        dbManager.addState(game.getId(),1);
+                    }
+                    else{
+                        dbManager.addState(game.getId(),0);
+                    }
                 }
             });
         }

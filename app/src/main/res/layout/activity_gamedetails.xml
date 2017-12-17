@@ -112,4 +112,17 @@
             android:visibility="invisible" />
     </LinearLayout>
 
+    <Switch
+        android:id="@+id/switchState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgCover"
+        android:layout_below="@+id/imgCover"
+        android:checked="false"
+        android:text="Completed"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@android:color/darker_gray"
+        android:visibility="invisible"
+        android:theme="@style/SCBSwitch"/>
+
 </android.widget.RelativeLayout>

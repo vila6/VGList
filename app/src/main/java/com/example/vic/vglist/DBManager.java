@@ -22,7 +22,7 @@ public class DBManager extends SQLiteOpenHelper {
     {
         try {
             db.beginTransaction();
-            db.execSQL( "CREATE TABLE JUEGOS ( ID int PRIMARY KEY, NAME TEXT, RATING int, COVERURL TEXT, DESCRIPTION TEXT, RATINGUSER int)");
+            db.execSQL( "CREATE TABLE JUEGOS ( ID int PRIMARY KEY, NAME TEXT, RATING real, COVERURL TEXT, DESCRIPTION TEXT, RATINGUSER real, PLAYING short, COMPLETED short)");
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
@@ -43,6 +43,8 @@ public class DBManager extends SQLiteOpenHelper {
         contentValues.put("COVERURL", game.getCoverUrl());
         contentValues.put("DESCRIPTION", game.getDescription());
         contentValues.put("RATINGUSER", game.getRatinguser());
+        contentValues.put("PLAYING", true);
+        contentValues.put("COMPLETED", false);
         this.getWritableDatabase().insertOrThrow("JUEGOS",null,contentValues);
     }
 
@@ -73,6 +75,15 @@ public class DBManager extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL("UPDATE JUEGOS SET RATINGUSER='" + new_rating + "' WHERE ID='" + id + "'");
     }
 
+    public void addState(int id, int state){
+        if (state==0) { //Playing
+            this.getWritableDatabase().execSQL("UPDATE JUEGOS SET PLAYING='1', COMPLETED='0' WHERE ID='" + id + "'");
+        }
+        if (state==1) { //Completed
+            this.getWritableDatabase().execSQL("UPDATE JUEGOS SET PLAYING='0', COMPLETED='1' WHERE ID='" + id + "'");
+        }
+    }
+
     public float getRatingUser(int id){
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT RATINGUSER FROM JUEGOS WHERE ID='"+id+"'",null);
         cursor.moveToNext();
@@ -81,9 +92,11 @@ public class DBManager extends SQLiteOpenHelper {
 
     public ArrayList<Game> getAllGames(){
         ArrayList<Game> toret = new ArrayList<Game>();
-        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM JUEGOS", null);
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM JUEGOS ORDER BY COMPLETED, NAME", null);
         while(cursor.moveToNext()){
             Game actualgame = new Game(cursor.getInt(0),cursor.getString(1),cursor.getDouble(2),cursor.getString(3),cursor.getString(4),cursor.getInt(5));
+            actualgame.setPlaying(cursor.getShort(6));
+            actualgame.setCompleted(cursor.getShort(7));
             toret.add(actualgame);
         }
         return toret;

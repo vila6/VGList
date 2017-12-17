@@ -80,6 +80,7 @@ public class GamesListActivity extends AppCompatActivity {
             TextView textGame = (TextView) view.findViewById(R.id.textGameName);
             RatingBar ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
             RatingBar ratingBarUser = (RatingBar) view.findViewById(R.id.ratingBarUser);
+            TextView textState = (TextView) view.findViewById(R.id.textState);
 
             if(gamesList.size()>i) {
                 Game actualGame = gamesList.get(i);
@@ -88,7 +89,8 @@ public class GamesListActivity extends AppCompatActivity {
                         .into(imageView);
                 textGame.setText((CharSequence) actualGame.getName());
                 ratingBar.setRating((float)(actualGame.getRating()/10));
-                ratingBarUser.setRating(actualGame.getRatinguser());
+                ratingBarUser.setRating((float)actualGame.getRatinguser());
+                textState.setText((CharSequence) actualGame.getState());
             }
 
             return view;
