@@ -63,6 +63,7 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(toGameDetails);
             }
         });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String busqueda) {
@@ -157,6 +158,7 @@ public class SearchActivity extends AppCompatActivity {
                         if (jsonobject.has("rating")) {
                             rating = (float) jsonobject.getDouble("rating");
                         }
+
                         Game juego = new Game(id, name, rating, url, description,0);
                         gamesList.add(juego);
                         adapter.notifyDataSetChanged();
@@ -172,8 +174,6 @@ public class SearchActivity extends AppCompatActivity {
                 System.err.print("Fallito wapo");
             }
         });
-
-
     }
 
 

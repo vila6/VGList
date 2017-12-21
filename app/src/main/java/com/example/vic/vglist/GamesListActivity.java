@@ -26,7 +26,7 @@ public class GamesListActivity extends AppCompatActivity {
         DBManager dbManager = new DBManager(getApplicationContext());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_gameslist);
+        setContentView(R.layout.activity_gameslist);
 
          ListView listGames = (ListView) findViewById(R.id.listGames);
          gamesList = dbManager.getAllGames();

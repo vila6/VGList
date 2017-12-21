@@ -48,6 +48,8 @@ public class GameDetailsActivity extends AppCompatActivity{
             final TextView textDescription = (TextView) findViewById(R.id.textDescription);
             final TextView textYourRating = (TextView) findViewById(R.id.textYourRating);
             final Switch switchState = (Switch) findViewById(R.id.switchState);
+            final FloatingActionButton fab = findViewById(R.id.fab);
+
             game = (Game) getIntent().getSerializableExtra("game");
 
 
@@ -59,14 +61,14 @@ public class GameDetailsActivity extends AppCompatActivity{
                     .load(game.getCoverUrl())
                     .into(cover);
 
-            final FloatingActionButton fab = findViewById(R.id.fab);
+
             if(dbManager.isAdded(game.getId())){
                 fab.setImageDrawable(getDrawable(getResources().getIdentifier("@android:drawable/ic_delete",null, getPackageName())));
                 ratingBarUser.setVisibility(View.VISIBLE);
                 textYourRating.setVisibility(View.VISIBLE);
                 switchState.setVisibility(View.VISIBLE);
-
             }
+
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -80,7 +82,13 @@ public class GameDetailsActivity extends AppCompatActivity{
                         ratingBarUser.setVisibility(View.VISIBLE);
                         textYourRating.setVisibility(View.VISIBLE);
                         switchState.setVisibility(View.VISIBLE);
-                        switchState.setText("Playing");
+                        if(game.getState()){
+                            switchState.setChecked(true);
+                            switchState.setText("Completed");
+                        }
+                        else{
+                            switchState.setText("Playing");
+                        }
                     }else{
                         dbManager.deleteGame(game.id);
                         dbManager.echoAll();
